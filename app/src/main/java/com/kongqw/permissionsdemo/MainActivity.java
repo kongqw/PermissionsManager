@@ -91,26 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
     // 显示缺失权限提示
     private void showMissingPermissionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(com.kongqw.permissionslibrary.R.string.help);
-        builder.setMessage(com.kongqw.permissionslibrary.R.string.string_help_text);
-
-        // 拒绝, 退出应用
-        builder.setNegativeButton(com.kongqw.permissionslibrary.R.string.quit, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-
-        builder.setPositiveButton(com.kongqw.permissionslibrary.R.string.settings, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                PermissionsManager.startAppSettings(getApplicationContext());
-            }
-        });
-
-        builder.show();
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("缺少必要权限")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PermissionsManager.startAppSettings(getApplicationContext());
+                    }
+                })
+                .create().show();
     }
 
 }

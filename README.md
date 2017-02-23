@@ -51,3 +51,11 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 ``` java
 PermissionsManager.startAppSettings(getApplicationContext());
 ```
+
+## 关于Android 6.0 以下版本的权限校验
+
+动态检查权限是Android 6.0 以后添加的权限检查方案。但是在6.0之前的版本，只要在清单文件里添加里权限，即使在设置中拒绝了权限，校验结果也是通过，校验没有没意义。
+
+由于手机厂商对ROM都有定制，如果一定要校验，可以查看对应ROM有没有给出API，但是极为碎片化，不建议。
+
+最好的解决方案就是根据对应功能是否达到了预期效果来判断，如果没有达到预期效果，那么可能是没有权限。

@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.RECORD_AUDIO
     };
     static final String[] PERMISSIONS2 = new String[]{
-            Manifest.permission.CAMERA
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
     // 权限管理器

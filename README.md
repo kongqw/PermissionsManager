@@ -1,3 +1,30 @@
+
+[![](https://jitpack.io/v/kongqw/PermissionsManager.svg)](https://jitpack.io/#kongqw/PermissionsManager)
+
+## 部署
+
+Step 1. Add the JitPack repository to your build file
+
+Add it in your root build.gradle at the end of repositories:
+
+``` gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Step 2. Add the dependency
+
+``` gradle
+dependencies {
+        compile 'com.github.kongqw:PermissionsManager:1.0.0'
+}
+```
+
+
 ## 应用
 
 使用起来的逻辑也比较清晰简单，一共3步：

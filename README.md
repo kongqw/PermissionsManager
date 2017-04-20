@@ -46,6 +46,12 @@ mPermissionsManager = new PermissionsManager(this) {
             Log.i(TAG, "noAuthorization: " + permission);
         }
     }
+    
+    @Override
+    public void ignore(int requestCode) {
+        // Android 6.0 以下系统不校验
+        Toast.makeText(getApplicationContext(), "Android 6.0 以下系统无需动态校验权限！自行检查！", Toast.LENGTH_SHORT).show();
+    }
 };
 ```
 

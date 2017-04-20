@@ -43,7 +43,7 @@ public abstract class PermissionsManager {
      * <p>
      * Android 6.0 以下的系统，只要在清单文件中加入了权限，即使在设置中拒绝，checkSelfPermission也会返回已授权！校验没有意义。
      */
-    public abstract void ignore();
+    public abstract void ignore(int requestCode);
 
     /**
      * 构造方法
@@ -83,7 +83,7 @@ public abstract class PermissionsManager {
             }
         } else {
             // 6.0 以下版本不校验权限
-            ignore();
+            ignore(requestCode);
         }
     }
 

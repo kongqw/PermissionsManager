@@ -1,0 +1,14 @@
+<resources>
+
+    <style name="Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationTranslucent</item>
+    </style>
+
+    <style name="AnimationTranslucent">
+        <item name="android:windowEnterAnimation">@anim/translucent_enter</item>
+        <item name="android:windowExitAnimation">@anim/translucent_exit</item>
+    </style>
+
+</resources>

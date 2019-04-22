@@ -16,4 +16,5 @@ class MyApplication : Application() {
 
         XPermissionsManager.init(this)
     }
+
 }

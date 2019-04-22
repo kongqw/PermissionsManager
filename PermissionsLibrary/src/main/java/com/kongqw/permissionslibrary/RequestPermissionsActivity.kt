@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.View
 import com.kongqw.permissionslibrary.bean.PermissionsResponseInfo
 import org.greenrobot.eventbus.EventBus
@@ -118,6 +119,7 @@ class RequestPermissionsActivity : AppCompatActivity() {
     private fun recheckPermissions(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         for (grantResult in grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
+                Log.i("kongqw666","onRequestPermissionsResult isRegistered = ${EventBus.getDefault().isRegistered(this)}")
                 // 未授权
                 EventBus.getDefault().post(PermissionsResponseInfo().apply {
                     isAuthorized = false

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Main2Activity">
+    tools:context=".Main3Activity">
 
     <Button
         android:id="@+id/btn_1"
@@ -24,11 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="检查权限3" />
-
-    <Button
-        android:id="@+id/btn_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="跳转" />
 
 </LinearLayout>

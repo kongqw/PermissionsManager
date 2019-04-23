@@ -10,10 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.View
-import com.kongqw.permissionslibrary.bean.PermissionsResponseInfo
-import org.greenrobot.eventbus.EventBus
 
 class RequestPermissionsActivity : AppCompatActivity() {
 
@@ -86,25 +83,19 @@ class RequestPermissionsActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, lacks.toTypedArray(), requestCode)
             } else {
                 // 授权
-                EventBus.getDefault().post(PermissionsResponseInfo().apply {
-                    isAuthorized = true
-                    this.requestCode = requestCode
-                    this.permissions = ArrayList<String>().apply {
-                        addAll(permissions.toList())
-                    }
+                XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode,ArrayList<String>().apply {
+                    addAll(permissions.toList())
                 })
+                XPermissionsManager.mOnRequestPermissionsListener = null
                 finish()
                 return
             }
         } else {
             // 6.0 以下版本不校验权限
-            EventBus.getDefault().post(PermissionsResponseInfo().apply {
-                isAuthorized = true
-                this.requestCode = requestCode
-                this.permissions = ArrayList<String>().apply {
-                    addAll(permissions.toList())
-                }
+            XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode,ArrayList<String>().apply {
+                addAll(permissions.toList())
             })
+            XPermissionsManager.mOnRequestPermissionsListener = null
             finish()
             return
         }
@@ -113,31 +104,23 @@ class RequestPermissionsActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         recheckPermissions(requestCode, permissions, grantResults)
+        XPermissionsManager.mOnRequestPermissionsListener = null
         finish()
     }
 
     private fun recheckPermissions(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         for (grantResult in grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
-                Log.i("kongqw666","onRequestPermissionsResult isRegistered = ${EventBus.getDefault().isRegistered(this)}")
                 // 未授权
-                EventBus.getDefault().post(PermissionsResponseInfo().apply {
-                    isAuthorized = false
-                    this.requestCode = requestCode
-                    this.permissions = ArrayList<String>().apply {
-                        addAll(permissions.toList())
-                    }
+                XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsNoAuthorization(requestCode,ArrayList<String>().apply {
+                    addAll(permissions.toList())
                 })
                 return
             }
         }
         // 授权
-        EventBus.getDefault().post(PermissionsResponseInfo().apply {
-            isAuthorized = true
-            this.requestCode = requestCode
-            this.permissions = ArrayList<String>().apply {
-                addAll(permissions.toList())
-            }
+        XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode,ArrayList<String>().apply {
+            addAll(permissions.toList())
         })
     }
 }

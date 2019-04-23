@@ -20,7 +20,7 @@ Step 2. Add the dependency
 
 ``` gradle
 dependencies {
-        implementation 'com.github.kongqw:PermissionsManager:2.0.0'
+        implementation 'com.github.kongqw:PermissionsManager:2.1.0'
 }
 ```
 
@@ -36,27 +36,11 @@ dependencies {
 XPermissionsManager.init(this)
 ```
 
-### 2. 请求权限监听
-
-添加监听
-
-``` kotlin
-XPermissionsManager.addOnRequestPermissionsListener(this)
-```
-
-移除监听
-
-``` kotlin
-XPermissionsManager.removeOnRequestPermissionsListener()
-```
-
-### 3. 请求权限
+### 2. 请求权限
 
 ``` java
 // 请求权限
-XPermissionsManager.checkPermissions(0, ArrayList<String>().apply {
-    add(Manifest.permission.CAMERA)
-})
+XPermissionsManager.checkPermissions(`请求码`, `请求权限`, `回调监听`)
 ```
 
 

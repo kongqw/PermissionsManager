@@ -10,6 +10,7 @@ import com.kongqw.permissionslibrary.listener.OnRequestPermissionsListener
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity(), OnRequestPermissionsListener {
+
     override fun onPermissionsAuthorized(requestCode: Int, permissions: ArrayList<String>) {
         Toast.makeText(applicationContext, "权限通过 : requestCode = $requestCode", Toast.LENGTH_SHORT).show()
     }
@@ -45,6 +46,9 @@ class Main2Activity : AppCompatActivity(), OnRequestPermissionsListener {
         }
         btn_4.setOnClickListener {
             startActivity(Intent(this, Main3Activity::class.java))
+        }
+        btn_5.setOnClickListener {
+            startActivity(Intent(this, SystemSettingActivity::class.java))
         }
     }
 

@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SystemSettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".Main3Activity"
             android:exported="true" />
         <activity

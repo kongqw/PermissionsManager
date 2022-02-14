@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="PermissionsLibrary/src/main/res/layout/activity_permissions.xml" value="0.36041666666666666" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.30416666666666664" />
+        <entry key="app/src/main/res/layout/activity_system_setting.xml" value="0.296875" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />

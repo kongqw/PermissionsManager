@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        minSdk 16
+        minSdk 19
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,7 @@ dependencies {
 //        exclude group: 'com.android.support', module: 'support-annotations'
 //    })
     implementation "androidx.appcompat:appcompat:1.4.0"
+    implementation 'com.google.android.material:material:1.4.0'
     testImplementation 'junit:junit:4.13.2'
 }
 

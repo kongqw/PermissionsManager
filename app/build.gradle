@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.kongqw.permissionsdemo"
 
-        minSdk 16
+        minSdk 19
         targetSdk 31
         versionCode 1
         versionName "1.0"

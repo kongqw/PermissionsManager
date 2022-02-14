@@ -8,6 +8,7 @@
         android:supportsRtl="true">
         <activity
             android:name=".RequestPermissionsActivity"
+            android:exported="false"
             android:theme="@style/Transparent" />
     </application>
 

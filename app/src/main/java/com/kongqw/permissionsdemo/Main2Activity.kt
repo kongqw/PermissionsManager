@@ -19,6 +19,10 @@ class Main2Activity : AppCompatActivity(), OnRequestPermissionsListener {
         Toast.makeText(applicationContext, "权限拒绝 : requestCode = $requestCode", Toast.LENGTH_SHORT).show()
     }
 
+    override fun onPermissionsDeniedWithIgnore(requestCode: Int, lacksPermissions: ArrayList<String>) {
+        Toast.makeText(applicationContext, "权限拒绝且忽略 : requestCode = $requestCode", Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

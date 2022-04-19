@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.view.View
@@ -15,6 +16,7 @@ import android.view.View
 class RequestPermissionsActivity : AppCompatActivity() {
 
     companion object {
+        private val TAG = RequestPermissionsActivity::class.java.simpleName
         private const val EXTRA_REQUEST_CODE = "EXTRA_REQUEST_CODE"
         private const val EXTRA_PERMISSIONS = "EXTRA_PERMISSIONS"
         fun startActivity(context: Application, requestCode: Int, permissions: ArrayList<String>) {
@@ -55,7 +57,6 @@ class RequestPermissionsActivity : AppCompatActivity() {
         }
         mRequestCode = intent.getIntExtra(EXTRA_REQUEST_CODE, 0)
 
-
         checkPermissions(mRequestCode!!, mPermissions!!)
     }
 
@@ -69,7 +70,7 @@ class RequestPermissionsActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android 6.0 动态检查权限
-            val lacks = java.util.ArrayList<String>()
+            val lacks = ArrayList<String>()
             for (permission in permissions) {
                 if (ContextCompat.checkSelfPermission(applicationContext, permission) == PackageManager.PERMISSION_DENIED) {
                     lacks.add(permission)
@@ -80,8 +81,8 @@ class RequestPermissionsActivity : AppCompatActivity() {
                 // 有权限没有授权 申请CAMERA权限
                 ActivityCompat.requestPermissions(this, lacks.toTypedArray(), requestCode)
             } else {
-                // 授权
-                XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode,ArrayList<String>().apply {
+                // 已全部授权
+                XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode, ArrayList<String>().apply {
                     addAll(permissions.toList())
                 })
                 XPermissionsManager.mOnRequestPermissionsListener = null
@@ -90,7 +91,7 @@ class RequestPermissionsActivity : AppCompatActivity() {
             }
         } else {
             // 6.0 以下版本不校验权限
-            XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode,ArrayList<String>().apply {
+            XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode, ArrayList<String>().apply {
                 addAll(permissions.toList())
             })
             XPermissionsManager.mOnRequestPermissionsListener = null
@@ -101,6 +102,7 @@ class RequestPermissionsActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.i(TAG, "onRequestPermissionsResult($requestCode, $permissions, $grantResults)")
         recheckPermissions(requestCode, permissions, grantResults)
         XPermissionsManager.mOnRequestPermissionsListener = null
         finish()
@@ -109,15 +111,29 @@ class RequestPermissionsActivity : AppCompatActivity() {
     private fun recheckPermissions(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         for (grantResult in grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
-                // 未授权
-                XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsNoAuthorization(requestCode,ArrayList<String>().apply {
-                    addAll(permissions.toList())
-                })
+
+                val deniedWithIgnorePermissions = ArrayList<String>()
+                permissions.forEach { permission ->
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                        // 已经设置过不再提醒
+                        deniedWithIgnorePermissions.add(permission)
+                    }
+                }
+
+                if (deniedWithIgnorePermissions.isNullOrEmpty()) {
+                    // 未授权
+                    XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsNoAuthorization(requestCode, ArrayList<String>().apply {
+                        addAll(permissions.toList())
+                    })
+                } else {
+                    // 未授权
+                    XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsDeniedWithIgnore(requestCode, deniedWithIgnorePermissions)
+                }
                 return
             }
         }
         // 授权
-        XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode,ArrayList<String>().apply {
+        XPermissionsManager.mOnRequestPermissionsListener?.onPermissionsAuthorized(requestCode, ArrayList<String>().apply {
             addAll(permissions.toList())
         })
     }

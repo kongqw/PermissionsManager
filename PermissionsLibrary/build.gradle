@@ -53,7 +53,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.kongqw'
                 artifactId = 'PermissionsManager'
-                version = '2.3.0'
+                version = '2.3.1'
             }
         }
     }

@@ -29,11 +29,14 @@ class Main2Activity : AppCompatActivity(), OnRequestPermissionsListener {
         setContentView(R.layout.activity_main2)
 
         btn_1.setOnClickListener {
-            val p1 = ArrayList<String>().apply {
-                add(Manifest.permission.MODIFY_AUDIO_SETTINGS)
-                add(Manifest.permission.CAMERA)
-            }
-            XPermissionsManager.checkPermissions(0, p1, this)
+//            val p1 = ArrayList<String>().apply {
+//                add(Manifest.permission.MODIFY_AUDIO_SETTINGS)
+//                add(Manifest.permission.CAMERA)
+//            }
+//            XPermissionsManager.checkPermissions(0, p1, this)
+
+            XPermissionsManager.checkPermissions(0, this, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+            XPermissionsManager.checkPermissions(0, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO), this)
         }
         btn_2.setOnClickListener {
             val p2 = ArrayList<String>().apply {
@@ -42,11 +45,12 @@ class Main2Activity : AppCompatActivity(), OnRequestPermissionsListener {
             XPermissionsManager.checkPermissions(1, p2, this)
         }
         btn_3.setOnClickListener {
-            val p3 = ArrayList<String>().apply {
-                add(Manifest.permission.ACCESS_FINE_LOCATION)
-                add(Manifest.permission.ACCESS_COARSE_LOCATION)
-            }
-            XPermissionsManager.checkPermissions(this, 2, p3, this)
+//            val p3 = ArrayList<String>().apply {
+//                add(Manifest.permission.ACCESS_FINE_LOCATION)
+//                add(Manifest.permission.ACCESS_COARSE_LOCATION)
+//            }
+//            XPermissionsManager.checkPermissions(this, 2, p3, this)
+            XPermissionsManager.checkPermissions(this, 2, this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
         }
         btn_4.setOnClickListener {
             startActivity(Intent(this, Main3Activity::class.java))

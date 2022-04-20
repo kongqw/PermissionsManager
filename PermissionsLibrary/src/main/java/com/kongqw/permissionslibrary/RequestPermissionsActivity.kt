@@ -19,6 +19,8 @@ class RequestPermissionsActivity : AppCompatActivity() {
         private val TAG = RequestPermissionsActivity::class.java.simpleName
         private const val EXTRA_REQUEST_CODE = "EXTRA_REQUEST_CODE"
         private const val EXTRA_PERMISSIONS = "EXTRA_PERMISSIONS"
+
+
         fun startActivity(context: Application, requestCode: Int, permissions: ArrayList<String>) {
             context.startActivity(Intent(context, RequestPermissionsActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -26,6 +28,15 @@ class RequestPermissionsActivity : AppCompatActivity() {
                 putStringArrayListExtra(EXTRA_PERMISSIONS, permissions)
             })
         }
+
+//        fun startActivity2(context: Application, requestCode: Int, vararg permissions: String) {
+//            context.startActivity(Intent(context, RequestPermissionsActivity::class.java).apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                putExtra(EXTRA_REQUEST_CODE, requestCode)
+//                val list = ArrayList<String>(permissions.toList())
+//                putStringArrayListExtra(EXTRA_PERMISSIONS, list)
+//            })
+//        }
 
         fun startActivity(activity: Activity, requestCode: Int, permissions: ArrayList<String>) {
             activity.startActivity(Intent(activity, RequestPermissionsActivity::class.java).apply {

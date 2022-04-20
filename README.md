@@ -20,7 +20,7 @@ Step 2. Add the dependency
 
 ``` gradle
 dependencies {
-        implementation 'com.github.kongqw:PermissionsManager:2.1.0'
+        implementation 'com.github.kongqw:PermissionsManager:2.3.1'
 }
 ```
 

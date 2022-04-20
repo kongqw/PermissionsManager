@@ -31,8 +31,33 @@ object XPermissionsManager {
         }
     }
 
+    fun checkPermissions(requestCode: Int, listener: OnRequestPermissionsListener, vararg permissions: String) {
+        mApplication?.apply {
+            mOnRequestPermissionsListener = listener
+            RequestPermissionsActivity.startActivity(this, requestCode, ArrayList(permissions.toList()))
+        }
+    }
+
+    fun checkPermissions(requestCode: Int, permissions: Array<String>, listener: OnRequestPermissionsListener) {
+        mApplication?.apply {
+            mOnRequestPermissionsListener = listener
+            permissions.toList()
+            RequestPermissionsActivity.startActivity(this, requestCode, ArrayList(permissions.toList()))
+        }
+    }
+
     fun checkPermissions(activity: Activity, requestCode: Int, permissions: ArrayList<String>, listener: OnRequestPermissionsListener) {
         mOnRequestPermissionsListener = listener
         RequestPermissionsActivity.startActivity(activity, requestCode, permissions)
+    }
+
+    fun checkPermissions(activity: Activity, requestCode: Int, listener: OnRequestPermissionsListener, vararg permissions: String) {
+        mOnRequestPermissionsListener = listener
+        RequestPermissionsActivity.startActivity(activity, requestCode, ArrayList(permissions.toList()))
+    }
+
+    fun checkPermissions(activity: Activity, requestCode: Int, permissions: Array<String>, listener: OnRequestPermissionsListener) {
+        mOnRequestPermissionsListener = listener
+        RequestPermissionsActivity.startActivity(activity, requestCode, ArrayList(permissions.toList()))
     }
 }
